@@ -1,0 +1,25 @@
+Testing with valid headers...
+[{"item":"Portal Gun"},{"item":"Plumbus"}]
+Status code: 200
+
+
+Testing with invalid token...
+{"detail":"X-Token header invalid"}
+Status code: 400
+
+
+Testing with invalid key...
+{"detail":"X-Key header invalid"}
+Status code: 401
+
+
+Testing with both invalid token and key...
+{"detail":"X-Token header invalid"}
+Status code: 400
+
+
+Testing with missing headers...
+{"detail":[{"type":"missing","loc":["header","x-token"],"msg":"Field required","input":null},{"type":"missing","loc":["header","x-key"],"msg":"Field required","input":null}]}
+Status code: 422
+
+
