@@ -8,8 +8,8 @@ class NumberInput(BaseModel):
     number: int = Field(..., ge=1, le=10, description="A number between 1 and 10")
 
 # SQLAlchemy model for database
-class UserNumber(Base):
-    __tablename__ = "user_numbers"
+class UserData(Base):
+    __tablename__ = "user_data"
 
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, index=True)

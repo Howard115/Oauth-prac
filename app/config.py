@@ -19,7 +19,7 @@ tags_metadata = [
         "description": "Operations for user authentication with Google SSO"
     },
     {
-        "name": "user_numbers",
-        "description": "Operations with user's stored numbers"
+        "name": "user_data",
+        "description": "Operations with user's stored data"
     }
 ] 
