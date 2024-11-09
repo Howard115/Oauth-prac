@@ -4,8 +4,8 @@ from app.config import tags_metadata
 from app.routers import auth, numbers, api_keys
 
 app = FastAPI(
-    title="User Numbers API",
-    description="An API for storing and retrieving user numbers with Google authentication",
+    title="User Data Management System",
+    description="A secure API service for managing user data with Google OAuth authentication",
     openapi_tags=tags_metadata
 )
 
