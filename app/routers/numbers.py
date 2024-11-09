@@ -20,8 +20,8 @@ async def get_user_number(
     db: Session = Depends(get_db)
 ):
     """Get the stored number for the logged-in user."""
-    db_data = db.query(UserData).filter(UserData.email == user.email).first()
-    stored_number = db_data.number if db_data else None
+    db_user = db.query(UserData).filter(UserData.email == user.email).first()
+    stored_number = db_user.number if db_user else None
     
     return NumberResponse(
         message=f"Welcome, {user.email}!",
@@ -35,18 +35,18 @@ async def store_user_number(
     db: Session = Depends(get_db)
 ):
     """Store a number (1-10) for the logged-in user."""
-    db_data = db.query(UserData).filter(UserData.email == user.email).first()
+    db_user = db.query(UserData).filter(UserData.email == user.email).first()
     
-    if db_data:
-        db_data.number = number_input.number
+    if db_user:
+        db_user.number = number_input.number
     else:
-        db_data = UserData(email=user.email, number=number_input.number)
-        db.add(db_data)
+        db_user = UserData(email=user.email, number=number_input.number)
+        db.add(db_user)
     
     db.commit()
-    db.refresh(db_data)
+    db.refresh(db_user)
     
     return NumberResponse(
         message=f"Number {number_input.number} stored for user {user.email}",
-        stored_number=db_data.number
+        stored_number=db_user.number
     ) 

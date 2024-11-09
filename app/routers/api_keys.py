@@ -17,8 +17,8 @@ async def get_user_api_key(
     db: Session = Depends(get_db)
 ):
     """Get the stored API key for the logged-in user."""
-    db_data = db.query(UserData).filter(UserData.email == user.email).first()
-    stored_api_key = db_data.api_key if db_data else None
+    db_user = db.query(UserData).filter(UserData.email == user.email).first()
+    stored_api_key = db_user.api_key if db_user else None
     
     return APIKeyResponse(
         message=f"Welcome, {user.email}!",
@@ -32,18 +32,18 @@ async def store_user_api_key(
     db: Session = Depends(get_db)
 ):
     """Store an API key for the logged-in user."""
-    db_data = db.query(UserData).filter(UserData.email == user.email).first()
+    db_user = db.query(UserData).filter(UserData.email == user.email).first()
     
-    if db_data:
-        db_data.api_key = api_key_input.api_key
+    if db_user:
+        db_user.api_key = api_key_input.api_key
     else:
-        db_data = UserData(email=user.email, api_key=api_key_input.api_key)
-        db.add(db_data)
+        db_user = UserData(email=user.email, api_key=api_key_input.api_key)
+        db.add(db_user)
     
     db.commit()
-    db.refresh(db_data)
+    db.refresh(db_user)
     
     return APIKeyResponse(
         message=f"API key stored for user {user.email}",
-        stored_api_key=db_data.api_key
+        stored_api_key=db_user.api_key
     ) 
