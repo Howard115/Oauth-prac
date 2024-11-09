@@ -14,6 +14,7 @@ class UserData(Base):
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, index=True)
     number = Column(Integer)
+    api_key = Column(String)
 
 # Pydantic model for response
 class NumberResponse(BaseModel):
@@ -21,4 +22,16 @@ class NumberResponse(BaseModel):
     stored_number: int | None
 
     class Config:
-        from_attributes = True 
+        from_attributes = True
+
+# Add after the NumberResponse class
+
+class APIKeyInput(BaseModel):
+    api_key: str = Field(..., min_length=1, max_length=256, description="User's personal API key")
+
+class APIKeyResponse(BaseModel):
+    message: str
+    stored_api_key: str | None
+
+    class Config:
+        from_attributes = True

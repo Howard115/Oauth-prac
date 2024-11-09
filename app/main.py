@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
 from app.config import tags_metadata
-from app.routers import auth, numbers
+from app.routers import auth, numbers, api_keys
 
 app = FastAPI(
     title="User Numbers API",
@@ -11,3 +11,4 @@ app = FastAPI(
 
 app.include_router(auth.router)
 app.include_router(numbers.router)
+app.include_router(api_keys.router)
