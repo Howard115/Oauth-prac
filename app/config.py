@@ -1,13 +1,14 @@
 from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
-    SECRET_KEY: str = "78b84c2e69f44566d3d56ea023246c0e5d425a5979edde6218713e8d3c6d0468"
-    CLIENT_ID: str = "382343599423-ht51jbncsv739s1kqd8c48pv60p1rmh8.apps.googleusercontent.com"
-    CLIENT_SECRET: str = "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"
+    SECRET_KEY: str
+    CLIENT_ID: str
+    CLIENT_SECRET: str
     REDIRECT_URI: str = "http://localhost:8000/auth/callback"
 
     class Config:
         env_file = ".env"
+        env_file_encoding = "utf-8"
 
 settings = Settings()
 
